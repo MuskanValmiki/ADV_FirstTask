@@ -1,12 +1,10 @@
-from http import cookiejar
 from urllib.request import Request
 import scrapy
-import requests
+import json
 
 class TrainSpider(scrapy.Spider):
     name = "calendar_spider"
     
-
     def start_requests(self):
         start_urls = [
         'https://www.imdb.com/calendar/?ref_=nv_mv_cal',
@@ -16,7 +14,13 @@ class TrainSpider(scrapy.Spider):
             yield scrapy.Request(url,callback=self.parse)
             
     def parse(self, response):
-        f=open('calendar.html','w').write(response.text)
-        # print(f)
+
+        Name=response.css('a::text').extract()
+        yield{'litext':Name}
+        
+        with open('data.json', 'w') as f:
+            json.dump(Name, f, indent=4)  
+
         # import pdb;pdb.set_trace()
             
+  
