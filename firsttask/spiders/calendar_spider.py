@@ -16,10 +16,14 @@ class TrainSpider(scrapy.Spider):
             
     def parse(self, response):
         movies_names=response.xpath('//*[@id="main"]/ul/li/a/text()').extract()
-              
+        
+        with open('movies_names.csv','w') as f:
+            for movie in movies_names:
+                f.write(movie)
+                f.write("\n")
+                
         with open('movies_names.json','w') as file:
-            json.dump(movies_names,file,indent=4)
-          
-  
+            json.dump(movies_names,file,indent=4)    
+                    
         # import pdb;pdb.set_trace()
             
