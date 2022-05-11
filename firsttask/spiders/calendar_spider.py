@@ -3,7 +3,7 @@ import scrapy
 import json
 import csv
 
-class TrainSpider(scrapy.Spider):
+class CalendarSpider(scrapy.Spider):
     name = "calendar_spider"
     
     def start_requests(self):
